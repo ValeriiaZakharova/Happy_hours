@@ -32,7 +32,7 @@ struct PlayView: View {
             }
             .frame(height: 48)
             .background(.lightGreen)
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 40)
             .padding(.bottom, 50)
             HStack(spacing: 20) {
                 Button(action: {

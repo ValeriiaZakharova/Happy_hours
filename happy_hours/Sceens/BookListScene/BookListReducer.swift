@@ -19,7 +19,12 @@ struct BookListReducer {
     @ObservableState
     struct State: Equatable {
         var books: [Audiobook] = []
-        var selectedBook: Audiobook = Audiobook(id: "", title: "", description: "", urlZipFile: "")
+        var selectedBook: Audiobook = Audiobook(
+            id: "",
+            title: "",
+            description: "",
+            urlZipFile: "",
+            authors: [Audiobook.Author(id: "", firstName: "David foster", lastName: "Wallace")])
         var isBooksLoaded = false
         @Presents var alert: AlertState<Action.Alert>?
         @Presents var destination: Destination.State?

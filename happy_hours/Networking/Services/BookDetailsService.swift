@@ -36,9 +36,7 @@ final class BookDetailsService: BookDetailServiceProtocol {
 
         do {
             let localURL = try await service.downloadFile(from: zipURL)
-
             try audioFileManager.unzip(zipURL: localURL)
-
             let audioFiles = audioFileManager.listAudioFiles()
             return audioFiles
         } catch {

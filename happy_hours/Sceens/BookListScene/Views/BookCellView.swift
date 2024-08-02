@@ -15,10 +15,14 @@ struct BookCellView: View {
         VStack {
             VStack(alignment: .leading, spacing: 20) {
                 Text(book.title)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .font(.headline)
-                Text(book.description)
-                    .font(.subheadline)
-                    .lineLimit(3)
+                HStack {
+                    Text(book.authors.first?.firstName ?? "")
+                        .font(.subheadline)
+                    Text(book.authors.first?.lastName ?? "")
+                        .font(.subheadline)
+                }
             }
             .padding(.bottom, 16)
             .padding(.horizontal, 40)
@@ -33,7 +37,10 @@ struct BookCellView: View {
         id: "1",
         title: "Infinity Jest",
         description: "Bla Bla",
-        urlZipFile: "")
+        urlZipFile: "", authors: [Audiobook.Author(
+            id: "",
+            firstName: "David foster",
+            lastName: "Wallace")])
     )
 }
 
