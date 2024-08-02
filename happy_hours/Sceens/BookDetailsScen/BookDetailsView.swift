@@ -22,11 +22,16 @@ struct BookDetailsView: View {
                     .padding(.horizontal, 40)
                     .foregroundColor(.black)
                 Text(store.book.description)
-                    .font(.title3)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .font(.subheadline)
                     .padding(.top, 10)
                     .padding(.horizontal, 40)
                     .foregroundColor(.black)
                 Spacer()
+                Text(store.keyPoints)
+                    .padding(.horizontal, 80)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.gray)
                 PlayView(
                     store: Store(initialState: PlayReducer.State(urls: store.audioURLs),
                     reducer: { PlayReducer()
@@ -41,7 +46,7 @@ struct BookDetailsView: View {
                     store.send(.dismiss)
                 }, label: {
                     Image(systemName: "xmark")
-                        .foregroundColor(.black)
+                        .foregroundColor(.gray)
                         .padding(.trailing, 20)
                 })
             }
@@ -69,7 +74,11 @@ struct BookDetailsView: View {
             id: "",
             title: "Happy Hours",
             description: "This story is set in the British province of New York during the French and Indian War, and concerns a Huron massacre (with passive French acquiescence) of from 500 to 1,500 unarmed Anglo-American troops, who had honorably surrendered at Fort William Henry",
-            urlZipFile: "")),
+            urlZipFile: "",
+            authors: [Audiobook.Author(
+                id: "",
+                firstName: "David foster",
+                lastName: "Wallace")])),
                                       reducer: { BookDetailsReducer() }))
     }
 }
