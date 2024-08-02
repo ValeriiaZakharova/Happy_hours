@@ -15,20 +15,24 @@ struct FixedProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
 
         let progress = configuration.fractionCompleted ?? 0.0
+        let circleDiameter = height * 2
 
         GeometryReader { geometry in
             VStack(alignment: .leading) {
-                Rectangle()
-                    .fill(.white)
-                    .frame(height: height)
-                    .frame(width: geometry.size.width)
-                    .cornerRadius(5)
-                    .overlay(alignment: .leading) {
-                        Rectangle()
-                            .fill(color)
-                            .cornerRadius(5)
-                            .frame(width: geometry.size.width * progress)
-                    }
+                ZStack(alignment: .leading) {
+                    Rectangle()
+                        .fill(Color.white)
+                        .frame(height: height)
+                        .cornerRadius(5)
+                    Rectangle()
+                        .fill(color)
+                        .frame(width: geometry.size.width * progress, height: height)
+                        .cornerRadius(5)
+                    Circle()
+                        .fill(color)
+                        .frame(width: circleDiameter, height: circleDiameter)
+                        .offset(x: geometry.size.width * progress - circleDiameter / 2)
+                }
             }
         }
     }

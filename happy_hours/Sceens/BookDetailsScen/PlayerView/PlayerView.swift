@@ -21,7 +21,6 @@ struct PlayView: View {
             HStack {
                 Text(store.currentTime.formatTime())
                     .foregroundStyle(.white)
-                    .font(.title3)
                     .padding(.trailing, 10)
                 ProgressView(value: store.progress)
                     .fixedProgressViewStyle(color: .yellow, height: 5)
@@ -29,7 +28,6 @@ struct PlayView: View {
                     .padding(.top, 22)
                 Text(store.duration.formatTime())
                     .foregroundStyle(.white)
-                    .font(.title3)
                     .padding(.trailing, 10)
             }
             .frame(height: 48)

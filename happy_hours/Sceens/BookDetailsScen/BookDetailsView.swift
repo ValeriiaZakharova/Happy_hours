@@ -27,6 +27,10 @@ struct BookDetailsView: View {
                     .padding(.horizontal, 40)
                     .foregroundColor(.black)
                 Spacer()
+                Text(store.keyPoints)
+                    .padding(.horizontal, 80)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.gray)
                 PlayView(
                     store: Store(initialState: PlayReducer.State(urls: store.audioURLs),
                     reducer: { PlayReducer()

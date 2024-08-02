@@ -16,6 +16,9 @@ struct BookDetailsReducer {
         var book: Audiobook
         var audioURLs: [URL] = []
         var isBookLoaded = false
+        var keyPoints: String {
+            "There are \(audioURLs.count) different version of this book"
+        }
         @Presents var alert: AlertState<Action.Alert>?
     }
 
