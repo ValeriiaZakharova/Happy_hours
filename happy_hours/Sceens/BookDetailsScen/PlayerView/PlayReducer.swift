@@ -26,8 +26,8 @@ struct PlayReducer {
     enum Action: BindableAction {
         case setUrls([URL])
         case getDuration(URL?)
-        case updateDuration(Double)
-        case playAudio
+        case updateDuration(Double, URL?)
+        case playAudio(URL?)
         case pauseAudio
         case resumeAudio
         case playStepForward
@@ -74,13 +74,13 @@ struct PlayReducer {
             case .getDuration(let url):
                 return .run { send in
                     let duration = audioPlayer.getAudioFileDuration(url: url).toDouble
-                    await send(.updateDuration(duration))
+                    await send(.updateDuration(duration, url))
                 }
-            case .updateDuration(let duration):
+            case .updateDuration(let duration, let url):
                 state.duration = duration
-                return .send(.playAudio)
-            case .playAudio:
-                return playAudio(from: uRLManager.firstURL())
+                return .send(.playAudio(url))
+            case .playAudio(let url):
+                return playAudio(from: url)
             case .updateIsPlayingState:
                 if !state.isNext {
                     state.isFirstPress.toggle()
@@ -120,10 +120,10 @@ struct PlayReducer {
                 return .cancel(id: CancelID.timer)
             case .playStepForward:
                 state.isNext = true
-                return playAudio(from: uRLManager.nextURL())
+                return .send(.getDuration(uRLManager.nextURL()))
             case .playStepBack:
                 state.isNext = true
-                return playAudio(from: uRLManager.previousURL())
+                return .send(.getDuration(uRLManager.previousURL()))
             case .skipForward:
                 return skipForward()
             case .skipBackward:
@@ -145,7 +145,7 @@ struct PlayReducer {
                 }
                 return .none
             case .alert(.presented(.tryAgainButtonTapped)):
-                return .send(.playAudio)
+                return .send(.playAudio(uRLManager.firstURL()))
             case .alert(.presented(.okButtonTapped)):
                 return .none
             case .alert:
